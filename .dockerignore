@@ -1,0 +1,8 @@
+config/
+.git/
+.github/
+.gitignore
+*.md
+docs/
+**/*.log
+node_modules/

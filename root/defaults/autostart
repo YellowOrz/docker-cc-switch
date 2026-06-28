@@ -1,0 +1,10 @@
+#!/bin/bash
+# selkies 第一次启动时会把本文件拷贝到 $HOME/.config/openbox/autostart，
+# 然后由 Openbox 在桌面会话启动时 source/执行它。
+#
+# 注意：
+# - 不能用 `exec`：本脚本以 Openbox 子进程方式启动，exec 会替换掉它，导致桌面挂掉。
+# - 用 `&` 把 cc-switch 放后台，让 openbox 继续接管会话；同时启动小型托盘 stalonetray。
+
+stalonetray --dockapp-mode simple >/dev/null 2>&1 &
+cc-switch >/dev/null 2>&1 &

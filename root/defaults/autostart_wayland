@@ -1,0 +1,6 @@
+#!/bin/bash
+# selkies Wayland 模式下的自启脚本（同 autostart，但由 labwc 而非 openbox 调用）。
+# 当 selkies 检测到 CPU 不支持 AVX2 时会自动回退 X11，此文件只有 Wayland 模式下才会被用到。
+
+stalonetray --dockapp-mode simple >/dev/null 2>&1 &
+cc-switch >/dev/null 2>&1 &

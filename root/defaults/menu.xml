@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Openbox 右键桌面菜单（selkies X11 模式下右键桌面弹出） -->
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+  <menu id="root-menu" label="MENU">
+    <item label="CC Switch" icon="/usr/share/icons/hicolor/128x128/apps/cc-switch.png">
+      <action name="Execute"><command>cc-switch</command></action>
+    </item>
+    <item label="Terminal (xterm)">
+      <action name="Execute"><command>xterm</command></action>
+    </item>
+  </menu>
+</openbox_menu>

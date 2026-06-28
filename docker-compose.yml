@@ -1,0 +1,37 @@
+services:
+  cc-switch:
+    # 方式 A：直接用 GitHub Actions 构建好的多架构镜像（把 yelloworz 改成你的用户名/仓库）
+    image: ghcr.io/yelloworz/docker-cc-switch:latest
+    # 方式 B：本地构建（注释掉上面的 image，取消下面注释；会按本机架构构建）
+    # build: .
+
+    container_name: cc-switch
+    restart: unless-stopped
+
+    environment:
+      - PUID=1000              # 容器内 abc 用户的 UID，与宿主机对齐避免权限错乱
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - LC_ALL=zh_CN.UTF-8
+      - TITLE=CC Switch
+      - NO_GAMEPAD=true
+      - PASSWORD=changeme       # 浏览器访问密码；留空或不设则无密码
+      - RESTART_APP=true        # cc-switch 被关闭后自动重启（看门狗），设 false 禁用
+      # - PIXELFLUX_WAYLAND=true # CPU 支持 AVX2 时可启用，体验更流畅
+
+    volumes:
+      # cc-switch 自身数据（数据库/设置/备份/Skills），持久化
+      - ./config:/config
+
+      # 如果要让容器里的 cc-switch 直接管理你【本机真实】的 Claude / Codex 配置，
+      # 把对应目录挂进来。注意：容器内 home 是 /config，所以 .claude 要落到 /config/.claude：
+      # - ${HOME}/.claude:/config/.claude
+      # - ${HOME}/.codex:/config/.codex
+      # - ${HOME}/.gemini:/config/.gemini
+
+    ports:
+      - "3000:3000"   # HTTP 浏览器访问（推荐先用这个验证）
+      - "3001:3001"   # HTTPS 浏览器访问
+
+    # WebKit2GTK 渲染需要较大的共享内存，默认 64MB 不够，调到 1GB
+    shm_size: "1gb"
