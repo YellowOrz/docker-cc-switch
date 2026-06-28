@@ -1,7 +1,7 @@
 services:
   cc-switch:
     # 方式 A：直接用 GitHub Actions 构建好的多架构镜像（把 yelloworz 改成你的用户名/仓库）
-    image: ghcr.io/yelloworz/docker-cc-switch:latest
+    image: orz2333/docker-cc-switch:latest
     # 方式 B：本地构建（注释掉上面的 image，取消下面注释；会按本机架构构建）
     # build: .
 

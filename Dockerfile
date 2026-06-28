@@ -59,9 +59,8 @@ RUN \
       libssl3 \
       ca-certificates \
       wget \
-      fonts-wqy-zenhei \
-      stalonetray \
-      xterm && \
+      fonts-wqy-microhei \
+      stalonetray && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
 
 # ---- Step 3: 下载并安装 cc-switch .deb ----
@@ -83,7 +82,14 @@ RUN \
   rm -f /tmp/cc-switch.deb && \
   # 把应用图标设为 selkies 页面图标
   ICON="$(find /usr/share/icons/hicolor -type f -name 'cc-switch.png' 2>/dev/null | sort -rV | head -n1)" && \
-  if [ -n "$ICON" ]; then cp -f "$ICON" /usr/share/selkies/www/icon.png; fi
+  if [ -n "$ICON" ]; then cp -f "$ICON" /usr/share/selkies/www/icon.png; fi && \
+# ---- Step 4: 清理构建依赖，减小镜像 ----
+  apt-get purge -y wget && \
+  apt-get autoremove -y && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+         /usr/share/doc/* /usr/share/man/* /usr/share/info/* \
+         /var/cache/debconf/*-old
 
 # 覆盖 selkies rootfs：自启脚本 + Openbox 右键菜单
 COPY root/ /

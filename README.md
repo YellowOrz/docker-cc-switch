@@ -4,7 +4,7 @@
 
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/YellowOrz/docker-cc-switch/docker.yml?label=build)](https://github.com/YellowOrz/docker-cc-switch/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/Docker-ghcr.io-blue?logo=docker)](https://ghcr.io/YellowOrz/docker-cc-switch)
+[![Docker](https://img.shields.io/badge/Docker-Docker%20Hub-blue?logo=docker)](https://hub.docker.com/r/orz2333/docker-cc-switch)
 
 ## 特性
 
@@ -25,7 +25,7 @@ docker run -d \
   -e PASSWORD=changeme \
   --shm-size=1gb \
   --restart unless-stopped \
-  ghcr.io/yelloworz/docker-cc-switch:latest
+  orz2333/docker-cc-switch:latest
 ```
 
 浏览器打开 `http://localhost:3000`，输入密码即可。
@@ -101,7 +101,7 @@ volumes:
 
 ### CI 自动构建
 
-推送到 GitHub 后，GitHub Actions 会自动构建多架构镜像并发布到 GHCR（GitHub Container Registry）。
+推送到 GitHub 后，GitHub Actions 会自动构建多架构镜像并发布到 Docker Hub。
 
 ### 手动构建
 
@@ -109,7 +109,7 @@ volumes:
 docker buildx create --use --name multiarch
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t ghcr.io/<your-username>/docker-cc-switch:latest \
+  -t <your-username>/docker-cc-switch:latest \
   --push .
 ```
 
