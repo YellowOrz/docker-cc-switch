@@ -7,4 +7,14 @@
 # - 用 `&` 把 cc-switch 放后台，让 openbox 继续接管会话；同时启动小型托盘 stalonetray。
 
 stalonetray --dockapp-mode simple >/dev/null 2>&1 &
-cc-switch >/dev/null 2>&1 &
+
+# RESTART_APP=true 时用循环守护 cc-switch，退出后自动重启
+if [ "${RESTART_APP}" = "true" ]; then
+  while true; do
+    cc-switch >/dev/null 2>&1
+    echo "[autostart] cc-switch exited (code $?), restarting in 2s..."
+    sleep 2
+  done &
+else
+  cc-switch >/dev/null 2>&1 &
+fi
